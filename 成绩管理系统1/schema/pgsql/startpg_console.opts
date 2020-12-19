@@ -1,0 +1,5 @@
+# initdb.exe options
+initdb=-U postgres -A trust -E UTF8 --locale zh-CN
+
+# postgres options
+postgres=-d 1 -E -F
