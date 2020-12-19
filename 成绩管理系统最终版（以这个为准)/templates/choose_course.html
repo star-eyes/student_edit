@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block styles %}
+<link href="/choose_course.css" rel="stylesheet" />
+{% endblock %} {% block page_content %}
+<div class="paper">
+    <form class="choose_course-form" action="/action/choose_course/add" method="post">
+        <label>学生：</label>
+        <select name="stu_sn">
+            <option value="">--选择--</option>
+            {% for stu in students %}
+            <option value="{{stu.stu_sn}}">
+                {{stu.stu_name}}({{stu.stu_sn}})
+            </option>
+            {% endfor %}
+        </select>
+
+        <label>课程：</label>
+        <select name="cou_sn">
+            <option value="">--选择--</option>
+            {% for item in course_plan %}
+            <option value="{{item.cou_plan_sn}}">
+                {{item.cou_plan_name}}({{item.cou_plan_sn}})
+            </option>
+            {% endfor %}
+        </select>
+        
+        
+        <label>学期：</label>
+        <select name="sch_term">
+            <option value="">--选择--</option>
+            {% for item in course_plan %}
+            <option value="{{item.cou_plan_sn}}">
+                {{item.sch_term}}({{item.cou_plan_sn}})
+            </option>
+            {% endfor %}
+        </select>
+
+        <label>时间：</label>
+        <select name="cou_plan_time">
+            <option value="">--选择--</option>
+            {% for item in course_plan %}
+            <option value="{{item.cou_plan_sn}}">
+                {{item.cou_plan_time}}({{item.cou_plan_sn}})
+            </option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="选课" />
+    </form>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>学期</th>
+                <th>课程名</th>
+                <th>开课时间</th>
+                <th>开课地点</th>
+                <th>已选学生序号</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.sch_term }}</td>
+                <td>{{ item.cou_plan_name }}</td>
+                <td>{{ item.cou_plan_time }}</td>
+                <td>{{ item.cou_plan_place }}</td>          
+                <td>{{ item.stu_sn }}</td>              
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

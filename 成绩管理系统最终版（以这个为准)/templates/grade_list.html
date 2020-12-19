@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block styles %}
+<link href="/grade_list.css" rel="stylesheet" />
+{% endblock %} {% block page_content %}
+<div class="paper">
+    <form class="grade-form" action="/action/grade/add" method="post">
+        
+        <label>学生：</label>
+        <select name="stu_sn">
+            <option value="">--选择--</option>
+            {% for stu in students %}
+            <option value="{{stu.stu_sn}}">
+                {{stu.stu_name}}({{stu.stu_sn}})
+            </option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="只显示该学生成绩" />
+    </form>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>课程名</th>
+                <th>学期</th>
+                <th>开课时间</th>
+                <th>成绩</th>             
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.stu_name }}</td>
+                <td>{{ item.cou_name }}</td>
+                <td>{{ item.sch_term }}</td>
+                <td>{{ item.cou_plan_time }}</td>
+                <td>{{ item.grade }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

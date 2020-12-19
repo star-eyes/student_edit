@@ -1,0 +1,66 @@
+{% extends "base.html" %} {% block styles %}
+<link href="/course_student.css" rel="stylesheet" />
+{% endblock %} {% block page_content %}
+<div class="paper">
+    <form class="choose_course-form" action="/action/cou_stu_del/add" method="post">   
+
+        <label>课程：</label>
+        <select name="cou_plan_name">
+            <option value="">--选择--</option>
+            {% for item in course_plan %}
+            <option value="{{item.cou_plan_name}}">
+                {{item.cou_plan_name}}({{item.cou_plan_sn}})
+            </option>
+            {% endfor %}
+        </select>      
+        
+        <label>学期：</label>
+        <select name="sch_term">
+            <option value="">--选择--</option>
+            {% for item in course_plan %}
+            <option value="{{item.sch_term}}">
+                {{item.sch_term}}
+            </option>
+            {% endfor %}
+        </select>
+        
+        <input type="submit" value="只显示该课程学生列表" />
+    </form>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>学期</th>
+                <th>课程名</th>
+                <th>开课时间</th>
+                <th>开课地点</th>
+                <th>已选学生序号</th>
+                <th>学生成绩</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.sch_term }}</td>
+                <td>{{ item.cou_plan_name }}</td>
+                <td>{{ item.cou_plan_time }}</td>
+                <td>{{ item.cou_plan_place }}</td>          
+                <td>{{ item.stu_sn }}</td>   
+                <td>{{ item.grade }}</td>   
+                <td>
+                    <div class="ctrlbar">
+                        <div class="btn">
+                            <a
+                                href="/student/course_student/edit/{{ item.sch_term }}/{{item.stu_sn}}/{{item.cou_sn}}"
+                            >
+                                修改
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
